@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Slider with Music & Progress</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Slide container */
+        .slider {
+            display: flex;
+            width: 300%;
+            height: 100vh;
+            transition: transform 0.8s ease-in-out;
+        }
+
+        /* Individual slides */
+        .slide {
+            flex: 0 0 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5em;
+            color: white;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+            position: relative;
+        }
+
+        .slide1 { background: linear-gradient(135deg, #ff6b6b, #f06595); }
+        .slide2 { background: linear-gradient(135deg, #339af0, #22b8cf); }
+        .slide3 { background: linear-gradient(135deg, #51cf66, #94d82d); }
+
+        /* Navigation buttons */
+        .nav-buttons {
+            position: fixed;
+            bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1em;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Music player & progress */
+        #music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 50%;
+            padding: 15px;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2em;
+        }
+
+        #music-progress {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            width: 150px;
+            height: 5px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #music-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #ffd43b;
+            transition: width 0.1s linear;
+        }
+
+        /* Slide counter */
+        #slide-counter {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1.2em;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 12px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Slider -->
+    <div class="slider" id="slider">
+        <div class="slide slide1">Slide 1: Welcome</div>
+        <div class="slide slide2">Slide 2: About Us</div>
+        <div class="slide slide3">Slide 3: Contact</div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons">
+        <button onclick="prevSlide()">&#8592; Previous</button>
+        <button onclick="nextSlide()">Next &#8594;</button>
+    </div>
+
+    <!-- Slide Counter -->
+    <div id="slide-counter">Slide 1 / 3</div>
+
+    <!-- Music Player -->
+    <div id="music-control" onclick="toggleMusic()">🎵</div>
+    <div id="music-progress"><div id="music-progress-bar"></div></div>
+    <audio id="background-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        let currentSlide = 0;
+        const slider = document.getElementById('slider');
+        const totalSlides = slider.children.length;
+        const counter = document.getElementById('slide-counter');
+
+        function showSlide(index) {
+            slider.style.transform = `translateX(-${index * 100}%)`;
+            counter.textContent = `Slide ${index + 1} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        }
+
+        // Auto slide every 5 seconds
+        setInterval(nextSlide, 5000);
+
+        // Swipe support
+        let startX = 0;
+        slider.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        slider.addEventListener('touchend', e => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) nextSlide();
+            if (endX - startX > 50) prevSlide();
+        });
+
+        // Music controls
+        const music = document.getElementById('background-music');
+        const progressBar = document.getElementById('music-progress-bar');
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        // Update music progress
+        music.addEventListener('timeupdate', () => {
+            const percent = (music.currentTime / music.duration) * 100;
+            progressBar.style.width = percent + '%';
+        });
+    </script>
+
+</body>
+</html>
