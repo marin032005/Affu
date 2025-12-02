@@ -1,138 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For You, Affu ❤️</title>
-
-<style>
-body {
-  margin: 0;
-  background: #111;
-  font-family: Arial, sans-serif;
-  overflow-x: hidden;
-}
-
-.slideshow-container {
-  max-width: 600px;
-  position: relative;
-  margin: auto;
-  margin-top: 40px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(255, 0, 100, 0.4);
-}
-
-.mySlides {
-  display: none;
-}
-
-.mySlides img {
-  width: 100%;
-  border-radius: 12px;
-}
-
-.fade {
-  animation-name: fade;
-  animation-duration: 1.2s;
-}
-
-@keyframes fade {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
-}
-
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  padding: 12px;
-  margin-top: -22px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
-  user-select: none;
-}
-
-.next {
-  right: 0;
-}
-
-.prev:hover, .next:hover {
-  color: pink;
-}
-
-.caption {
-  text-align: center;
-  color: #fff;
-  margin-top: 15px;
-  font-size: 20px;
-  letter-spacing: 1px;
-}
-</style>
-</head>
-<body>
-
-<div class="slideshow-container">
-
-  <div class="mySlides fade">
-    <img src="slide1.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide2.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide3.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide4.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide5.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide6.jpg">
-  </div>
-
-  <div class="mySlides fade">
-    <img src="slide7.jpg">
-  </div>
-
-  <a class="prev" onclick="plusSlides(-1)">❮</a>
-  <a class="next" onclick="plusSlides(1)">❯</a>
-</div>
-
-<div class="caption">For my Affu ❤️</div>
-
-<script>
-let slideIndex = 1;
-showSlides(slideIndex);
-
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
-
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-  }
-  slides[slideIndex-1].style.display = "block";
-}
-
-setInterval(() => {
-  plusSlides(1);
-}, 2500);
-</script>
-
-</body>
-</html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slide Show</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    img {
+      max-width: 90%;
+      max-height:
